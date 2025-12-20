@@ -207,7 +207,7 @@ exports.sendotp = async (req, res) => {
     console.log("🚀 ~ otp:", otp)
     const result = await OTP.findOne({
       email,
-      otp: otp.toString(),
+      otp: otp,
     })
 
     console.log("Result:", result)
