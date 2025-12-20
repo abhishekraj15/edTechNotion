@@ -182,6 +182,7 @@ exports.login = async (req, res) => {
 exports.sendotp = async (req, res) => {
   try {
     const { email } = req.body
+    console.log("🚀 ~ email:", email)
 
     // Check if user is already present
     // Find user with provided email

@@ -1,6 +1,10 @@
 const nodemailer = require("nodemailer")
+console.log("Outside process.env.MAIL_USER", process.env.MAIL_USER)
+console.log("Outside process.env.MAIL_PASS", process.env.MAIL_PASS)
 const mailSender = async (email, title, body) => {
- 
+  console.log("Inside process.env.MAIL_USER", process.env.MAIL_USER)
+  console.log("Inside process.env.MAIL_PASS", process.env.MAIL_PASS)
+
   try {
     let transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
