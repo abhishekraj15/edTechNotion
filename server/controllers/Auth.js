@@ -182,11 +182,12 @@ exports.login = async (req, res) => {
 exports.sendotp = async (req, res) => {
   try {
     const { email } = req.body
-    console.log("🚀 ~ email:", email)
+    console.log("🚀 ~ email in send otp function :", email)
 
     // Check if user is already present
     // Find user with provided email
     const checkUserPresent = await User.findOne({ email })
+    console.log("🚀 ~ checkUserPresent:", checkUserPresent)
     // to be used in case of signup
 
     // If user found with provided email
@@ -203,9 +204,8 @@ exports.sendotp = async (req, res) => {
       lowerCaseAlphabets: false,
       specialChars: false,
     })
+    console.log("🚀 ~ otp:", otp)
     const result = await OTP.findOne({ otp: otp })
-    console.log("Result is Generate OTP Func")
-    console.log("OTP", otp)
     console.log("Result", result)
     while (result) {
       otp = otpGenerator.generate(6, {
@@ -213,7 +213,9 @@ exports.sendotp = async (req, res) => {
       })
     }
     const otpPayload = { email, otp }
+    console.log("🚀 ~ otpPayload:", otpPayload)
     const otpBody = await OTP.create(otpPayload)
+    console.log("🚀 ~ otpBody:", otpBody)
     console.log("OTP Body", otpBody)
     res.status(200).json({
       success: true,
