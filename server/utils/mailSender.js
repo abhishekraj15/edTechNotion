@@ -1,23 +1,19 @@
 const nodemailer = require("nodemailer")
-console.log("Outside process.env.MAIL_USER", process.env.MAIL_USER)
-console.log("Outside process.env.MAIL_PASS", process.env.MAIL_PASS)
+
 const mailSender = async (email, title, body) => {
   console.log("Inside process.env.MAIL_USER", process.env.MAIL_USER)
   console.log("Inside process.env.MAIL_PASS", process.env.MAIL_PASS)
 
   try {
     const transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST, // smtp.gmail.com
-      port: 587, // 🔥 REQUIRED
-      secure: false, // 🔥 REQUIRED
+      service: "gmail", // 🔥 IMPORTANT
       auth: {
         user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
+        pass: process.env.MAIL_PASS, // Gmail App Password
       },
-      tls: {
-        rejectUnauthorized: false, // 🔥 production-safe
-      },
-      connectionTimeout: 10000, // 🔥 avoid hanging
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
+      socketTimeout: 15000,
     })
 
     let info = await transporter.sendMail({
