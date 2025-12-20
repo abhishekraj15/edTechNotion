@@ -6,13 +6,18 @@ const mailSender = async (email, title, body) => {
   console.log("Inside process.env.MAIL_PASS", process.env.MAIL_PASS)
 
   try {
-    let transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,
+    const transporter = nodemailer.createTransport({
+      host: process.env.MAIL_HOST, // smtp.gmail.com
+      port: 587, // 🔥 REQUIRED
+      secure: false, // 🔥 REQUIRED
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
       },
-      secure: false,
+      tls: {
+        rejectUnauthorized: false, // 🔥 production-safe
+      },
+      connectionTimeout: 10000, // 🔥 avoid hanging
     })
 
     let info = await transporter.sendMail({
